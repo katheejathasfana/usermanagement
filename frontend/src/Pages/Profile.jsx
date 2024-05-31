@@ -7,7 +7,7 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { logout } from "./Slice/authSice.jsx";
 import { useNavigate } from "react-router-dom";
-import { setProfile } from "./Slice/profileSlice.jsx";
+import { clearProfile, setProfile } from "./Slice/profileSlice.jsx";
 
 
 function Profile() {
@@ -48,7 +48,8 @@ function Profile() {
          'Authorization': `Bearer ${token}`
        }
       });
-      dispatch(logout()); // Dispatch the logout action
+      dispatch(logout());
+      dispatch(clearProfile()) // Dispatch the logout action
       localStorage.removeItem("Token");
       navigate("/"); // Navigate to the desired route after logout
     } catch (error) {
@@ -57,35 +58,35 @@ function Profile() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <div className="flex flex-col bg-gray-300 items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
-        <div className="p-6 space-y-4 m-5 md:space-y-6 sm:p-8 flex flex-col items-center relative">
+        <div className="p-6 space-y-4 md:space-y-6 sm:p-8 flex flex-col items-center relative">
           <Link to="/Edit" className="absolute top-0 right-0 p-4">
             <FontAwesomeIcon icon={faEdit} />
           </Link>
-          <h1 className="text-3xl font-semibold">Welcome {profile.username}</h1>
-          {image? (
-            <img
-              key={image}
-              src={`http://127.0.0.1:8000${image}`}
-              className="w-30 h-25 rounded-md"
-              alt="Profile"
-            />
-          ) : (
-            <img src={Image} alt="Default" />
-          )}
-          <p>
+          <h1 className="text-3xl font-semibold text-center">Welcome {profile.username}</h1>
+          <div className="flex justify-center items-center mb-4">
+            {image ? (
+              <img
+                key={image}
+                src={`http://127.0.0.1:8000${image}`}
+                className="w-20 h-20 rounded-full object-cover mx-auto bg-gray-500"
+                alt="Profile"
+              />
+            ) : (
+              <img src={("./assets/react.svg").default} alt="Default" className="w-20 h-20 rounded-full object-cover mx-auto bg-gray-500" />
+            )}
+          </div>
+          <p className="text-gray-700 text-base font-medium">
             Username:
-            <h className="font-semibold text-2xl">{profile.username}</h>
+            <h className="font-semibold text-2xl text-gray-900">{profile.username}</h>
           </p>
-          <p>Email: {profile.email}</p>
-          <p>Phone Number: {profile && profile.phone_no}</p>
-
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      </div>
-    </div>
-  );
-}
+          <p className="text-gray-700 text-base font-medium">Email: {profile.email}</p>
+          <p className="text-gray-700 text-base font-medium">Phone Number: {profile && profile.phone_no}</p>
+          <button onClick={handleLogout} className="bg-black text-white hover:bg-red-700 font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-red-4">logout</button>
+  </div>
+  </div>
+  </div>
+)}
 
 export default Profile;

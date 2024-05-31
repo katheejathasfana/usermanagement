@@ -15,13 +15,13 @@ const AddUser = () => {
     profile_img: null,
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prevState) => ({
+  //     ...prevState,
+  //     [name]: value,
+  //   }));
+  // };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -35,26 +35,21 @@ const AddUser = () => {
     e.preventDefault();
 
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append("username", formData.username);
-      formDataToSend.append("email", formData.email);
-      formDataToSend.append("password", formData.password);
-      formDataToSend.append("phone_no", formData.phone_no);
-      formDataToSend.append("profile_img", formData.profile_img);
-
       const token = localStorage.getItem('Token');
       console.log(token);
+      console.log(formData)
       const response = await axios.post(
         "http://127.0.0.1:8000/app/adduser/",
-        formDataToSend,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
+        
       );
-
+      
       console.log(response.data);
       setSuccess("Registration Successful: " + response.data);
       navigate("/Dashboard");
@@ -70,7 +65,7 @@ const AddUser = () => {
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                SignUp
+                Add USer
               </h1>
               {error && <p>Error: {error}</p>}
               {success && <p>Success: {success}</p>}
@@ -85,7 +80,7 @@ const AddUser = () => {
                   <input
                     type="text"
                     value={formData.username}
-                    onChange={handleChange}
+                    onChange={(e)=>setFormData({...formData, username:e.target.value})}
                     name="username"
                     id="username"
                     className="sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -104,7 +99,7 @@ const AddUser = () => {
                   <input
                     type="email"
                     value={formData.email}
-                    onChange={handleChange}
+                    onChange={(e)=>setFormData({...formData, email:e.target.value})}
                     name="email"
                     id="email"
                     className="sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -123,7 +118,7 @@ const AddUser = () => {
                   <input
                     type="password"
                     value={formData.password}
-                    onChange={handleChange}
+                    onChange={(e)=>setFormData({...formData,password:e.target.value})}
                     name="password"
                     id="password"
                     className="sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -140,12 +135,14 @@ const AddUser = () => {
                     Phone Number
                   </label>
                   <input
-                    type="number"
+                    type="tel"
                     name="phone_no"
                     value={formData.phone_no}
-                    onChange={handleChange}
+                    onChange={(e)=>setFormData({...formData,phone_no:e.target.value})}
+                    maxLength={10}
                     className="sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
+                 
                 </div>
 
                 <div>
