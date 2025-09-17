@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { logout } from "./Slice/authSice.jsx";
 import { useNavigate } from "react-router-dom";
 import { clearProfile, setProfile } from "./Slice/profileSlice.jsx";
+import API_URL from "../Api.jsx";
 
 
 function Profile() {
@@ -22,7 +23,7 @@ function Profile() {
       try {
         const token = localStorage.getItem("Token");
     
-        const response = await axios.get("http://127.0.0.1:8000/app/profile", {
+        const response = await axios.get(`${API_URL}/app/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -43,7 +44,7 @@ function Profile() {
   const handleLogout = async () => {
     const token = localStorage.getItem("Token");
     try {
-      await axios.post("http://127.0.0.1:8000/app/logout", null, {
+      await axios.post(`${API_URL}/app/logout`, null, {
         headers: {
          'Authorization': `Bearer ${token}`
        }

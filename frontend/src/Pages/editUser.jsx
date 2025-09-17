@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../Api";
 
 const EditProfile = () => {
   const [image, setImage] = useState("");
@@ -18,7 +19,7 @@ const EditProfile = () => {
       try {
         const token = localStorage.getItem("Token");
         console.log(token);
-        const response = await axios.get("http://127.0.0.1:8000/app/edit", {
+        const response = await axios.get(`${API_URL}/app/edit`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -63,7 +64,7 @@ const EditProfile = () => {
 
       const token = localStorage.getItem("Token");
       console.log(token);
-      await axios.post("http://127.0.0.1:8000/app/edit", formData, {
+      await axios.post(`${API_URL}/app/edit`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -99,7 +100,7 @@ const EditProfile = () => {
                     name="username"
                     value={userInfo.username}
                     onChange={handleChange}
-                    className="sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-light dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     readOnly
                   />
                 </div>
@@ -115,7 +116,7 @@ const EditProfile = () => {
                     name="email"
                     value={userInfo.email}
                     onChange={handleChange}
-                    className="sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-light dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     readOnly
                   />
                 </div>
@@ -132,7 +133,7 @@ const EditProfile = () => {
                     value={userInfo.phone_no}
                     onChange={handleChange}
                     maxLength={10}
-                    className="sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-light dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
                 </div>
                 <div>
@@ -147,7 +148,7 @@ const EditProfile = () => {
                     name="profile_pic"
                     onChange={handleFileChange}
                     accept="image/*"
-                    className="sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-light dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
                 </div>
                 <button

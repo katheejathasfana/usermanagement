@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./Slice/authSice.jsx";
+import API_URL from "../Api.jsx";
 
 
 function Login() {
@@ -18,9 +19,9 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://127.0.0.1:8000/app/", {
+      const response = await axios.post(`${API_URL}/app/`, {
         username,
-        password,
+        password
       });
       console.log(response.data);
       dispatch(

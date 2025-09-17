@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import API_URL from '../Api';
 
 export const Admin = () => {
     const [adminInfo, setAdminInfo] = useState({ username: "", password: "" });
@@ -18,7 +19,7 @@ export const Admin = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                "http://127.0.0.1:8000/app/admin",
+                `${API_URL}/app/admin`,
                 adminInfo,
                 {
                     headers: {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../Api";
 
 const AddUser = () => {
   const [error, setError] = useState("");
@@ -39,7 +40,7 @@ const AddUser = () => {
       console.log(token);
       console.log(formData)
       const response = await axios.post(
-        "http://127.0.0.1:8000/app/adduser/",
+        `${API_URL}/app/adduser/`,
         formData,
         {
           headers: {
