@@ -70,7 +70,7 @@ function Profile() {
             {image ? (
               <img
                 key={image}
-                src={`http://127.0.0.1:8000${image}`}
+                src={`${API_URL}/${image}`}
                 className="w-20 h-20 rounded-full object-cover mx-auto bg-gray-500"
                 alt="Profile"
               />
